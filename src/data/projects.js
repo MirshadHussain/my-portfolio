@@ -128,7 +128,7 @@ export const projects = [
       "100% WCAG AA keyboard accessibility compliance across all interactive elements",
       "Lighthouse 95+ performance optimization on desktop viewports"
     ],
-    githubUrl: "https://github.com/MirshadHussain/My_portfolio",
-    liveUrl: "https://github.com/MirshadHussain/My_portfolio"
+    githubUrl: "https://github.com/MirshadHussain/my-portfolio.git",
+    liveUrl: "https://github.com/MirshadHussain/my-portfolio.git"
   }
 ];
