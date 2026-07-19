@@ -1,0 +1,30 @@
+/* Semantic Design Tokens */
+:root {
+  /* Colors */
+  --color-background: #1a1a1a;
+  --color-surface: #222222;
+  --color-surface-light: #2a2a2a;
+  --color-surface-dark: #0f0f1a;
+  --color-surface-darker: #0a0a0f;
+  --color-surface-mixed: #333333;
+  
+  --color-accent: #E8450A;
+  --color-accent-hover: #ff5a1f;
+  --color-accent-secondary: #7F77DD;
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cccccc;
+  --color-text-muted: #999999;
+  --color-text-muted-dark: #8888aa;
+  --color-text-dark: #1a1a1a;
+  --color-text-subtle: #555555;
+  --color-text-dim: #444444;
+  
+  --color-border: #333333;
+  --color-border-dark: #1a1a2e;
+  
+  /* Typography */
+  --font-heading: 'Playfair Display', serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}

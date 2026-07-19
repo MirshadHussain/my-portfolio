@@ -1,0 +1,15 @@
+{
+  "short_name": "Mirshad Portfolio",
+  "name": "Mirshad Hussain - Data Science Undergraduate & Aspiring Business Analyst",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#1a1a1a",
+  "theme_color": "#E8450A",
+  "display": "standalone"
+}

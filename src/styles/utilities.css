@@ -1,0 +1,26 @@
+@layer utilities {
+  /* Layout utilities */
+  .page-container {
+    @apply min-h-screen w-full overflow-hidden bg-bg-primary;
+  }
+  
+  .section-padding {
+    @apply px-6 py-20 md:px-20 md:py-35; /* px-[24px] md:px-[80px] py-[80px] md:py-[140px] logic via generic spacing */
+  }
+
+  .content-width {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  
+  .absolute-fill {
+    @apply absolute inset-0 w-full h-full;
+  }
+  
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+}

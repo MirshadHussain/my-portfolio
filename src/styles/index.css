@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./design-system.css";
+@import "./utilities.css";
+@import "./animations.css";
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Base resets & global styles not handled by Tailwind */
+.contact-input:focus { 
+  border-color: var(--color-accent); 
+  outline: none; 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
