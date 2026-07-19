@@ -26,14 +26,14 @@ const HeroSection = () => {
             muted
             playsInline
             preload="auto"
-            poster="/hero-bg-fallback.webp"
+            // poster="/hero-bg-fallback.webp"
             className="absolute inset-0 w-full h-full object-cover"
           >
             <source src="/hero-bg.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         ) : (
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('/hero-bg-fallback.webp')" }}
           />
@@ -75,9 +75,9 @@ const HeroSection = () => {
         </motion.div>
 
         {/* Single CTA button */}
-        <Link to="/projects" className="no-underline">
+        <Link to="/about" className="no-underline">
           <Button className="mt-9 px-10 py-4" transition={{ delay: 0.8 }}>
-            EXPLORE MY WORK →
+            MORE ABOUT ME →
           </Button>
         </Link>
       </div>

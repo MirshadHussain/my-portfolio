@@ -1,13 +1,24 @@
 import React from 'react';
-import { FaBirthdayCake, FaPhone, FaFlag, FaMapMarkerAlt, FaCog, FaEnvelope } from 'react-icons/fa';
+import { 
+  FaBirthdayCake, 
+  FaPhone, 
+  FaFlag, 
+  FaMapMarkerAlt, 
+  FaEnvelope, 
+  FaLanguage, 
+  FaGraduationCap, 
+  FaUserCheck 
+} from 'react-icons/fa';
 
 export const infoItems = [
-  { icon: <FaBirthdayCake />, label: 'Birthdate', value: '2005.03.05' },
+  { icon: <FaBirthdayCake />, label: 'Birthday', value: '2005.03.05' },
   { icon: <FaPhone />, label: 'Phone', value: '+94 776559959' },
   { icon: <FaFlag />, label: 'Nationality', value: 'Sri Lankan' },
-  { icon: <FaMapMarkerAlt />, label: 'Address', value: 'Weligama, Sri Lanka' },
-  { icon: <FaCog />, label: 'Experience', value: 'N/A' },
-  { icon: <FaEnvelope />, label: 'Email', value: 'mirshadhhussain@gmail.com' }
+  { icon: <FaEnvelope />, label: 'Email', value: 'mirshadhhussain@gmail.com' },
+  { icon: <FaMapMarkerAlt />, label: 'Location', value: 'Weligama, Sri Lanka' },
+  { icon: <FaLanguage />, label: 'Languages', value: 'English, Sinhala' },
+  { icon: <FaGraduationCap />, label: 'Education', value: 'BSc Data Science' },
+  { icon: <FaUserCheck />, label: 'Availability', value: 'Open for Hire' }
 ];
 
 export const experienceData = [

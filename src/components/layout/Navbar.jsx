@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -11,96 +11,128 @@ const links = [
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
 
-  // Close navigation menu on Escape key press
+  // Close navigation menu on Escape key press or click outside
   useEffect(() => {
     if (!isOpen) return;
+
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setIsOpen(false);
       }
     };
+
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [isOpen]);
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center bg-transparent px-10 py-7">
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center bg-transparent px-6 sm:px-10 py-6 pointer-events-none">
         {/* Left side empty spacer */}
         <div></div>
 
         {/* Right side - Hamburger button */}
         <button 
           type="button"
-          onClick={() => setIsOpen(true)}
-          aria-label="Open navigation menu"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle navigation menu"
           aria-expanded={isOpen}
-          className="flex flex-col gap-[5px] cursor-pointer bg-transparent border-none p-2 rounded focus:outline-none focus:ring-2 focus:ring-accent"
+          className="pointer-events-auto flex flex-col gap-[5px] cursor-pointer bg-bg-surface/80 hover:bg-bg-card border border-border/80 p-3 shadow-lg backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-accent transition-colors"
         >
-          <div className="w-6 h-[2px] bg-white" />
-          <div className="w-6 h-[2px] bg-white" />
-          <div className="w-6 h-[2px] bg-white" />
+          <div className={`w-5 h-[2px] bg-white transition-transform duration-300 ${isOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+          <div className={`w-5 h-[2px] bg-white transition-opacity duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+          <div className={`w-5 h-[2px] bg-white transition-transform duration-300 ${isOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
         </button>
       </nav>
 
-      {/* Right Side Panel Menu */}
+      {/* Floating Menu Dropdown (Heights based on elements) */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-            initial={{ x: 320 }}
-            animate={{ x: 0 }}
-            exit={{ x: 320 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-            className="fixed top-0 right-0 w-[320px] h-screen bg-[#1e1e1e]/97 z-[100] flex flex-col justify-center py-10 pl-10 pr-0"
-          >
-            {/* Close Button */}
-            <button 
-              type="button"
+          <div className="fixed inset-0 z-[100] pointer-events-auto">
+            {/* Transparent backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              aria-label="Close navigation menu"
-              className="absolute top-6 right-6 cursor-pointer text-[20px] text-white bg-transparent border-none p-2 focus:outline-none focus:ring-2 focus:ring-accent"
-            >
-              ✕
-            </button>
+              className="fixed inset-0 bg-black/40 backdrop-blur-[2px]"
+            />
 
-            {/* Nav Links */}
-            <div className="flex flex-col gap-0">
-              {links.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ x: 30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.06, ease: "easeOut" }}
+            {/* Menu Container Card */}
+            <motion.div
+              ref={menuRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
+              initial={{ opacity: 0, y: -12, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="fixed top-20 right-6 sm:right-10 w-[240px] h-auto bg-bg-surface/95 backdrop-blur-md border border-border shadow-2xl p-5 flex flex-col gap-1 z-[101]"
+            >
+              {/* Header label */}
+              <div className="flex justify-between items-center pb-3 border-b border-border mb-1">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
+                  Navigation
+                </span>
+                <button 
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Close navigation menu"
+                  className="cursor-pointer text-xs text-text-muted hover:text-white bg-transparent border-none p-1 focus:outline-none"
                 >
-                  <NavLink
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className="no-underline"
+                  ✕
+                </button>
+              </div>
+
+              {/* Nav Links */}
+              <div className="flex flex-col gap-0.5">
+                {links.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ x: 10, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: index * 0.04, ease: "easeOut" }}
                   >
-                    {({ isActive }) => (
-                      <div 
-                        className="group py-3.5 border-b border-white/5 flex items-center gap-4 cursor-pointer relative"
-                      >
-                        {isActive && (
-                          <div className="absolute -left-10 top-0 bottom-0 w-[3px] bg-accent" />
-                        )}
-                        <div className="text-sm text-accent w-5 text-center" aria-hidden="true">
-                          {link.icon}
+                    <NavLink
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className="no-underline block"
+                    >
+                      {({ isActive }) => (
+                        <div 
+                          className={`py-2.5 px-3 flex items-center gap-3.5 cursor-pointer transition-colors duration-200 ${
+                            isActive 
+                              ? 'bg-accent/10 border-l-2 border-accent text-accent font-bold' 
+                              : 'text-text-secondary hover:text-white hover:bg-white/5'
+                          }`}
+                        >
+                          <div className="text-xs text-accent w-4 text-center" aria-hidden="true">
+                            {link.icon}
+                          </div>
+                          <div className="font-mono text-xs tracking-[0.12em] uppercase">
+                            {link.name}
+                          </div>
                         </div>
-                        <div className={`font-mono text-[13px] tracking-[0.12em] uppercase transition-colors duration-200 ${isActive ? 'text-accent' : 'text-[#aaaaaa] group-hover:text-white'}`}>
-                          {link.name}
-                        </div>
-                      </div>
-                    )}
-                  </NavLink>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                      )}
+                    </NavLink>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>

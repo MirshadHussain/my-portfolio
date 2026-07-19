@@ -15,7 +15,7 @@ const SocialLinks = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.2, duration: 0.6 }}
-      className="absolute bottom-8 right-10 z-20 flex flex-row gap-5 items-center"
+      className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-row gap-4 sm:gap-5 items-center bg-bg-surface/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none px-4 py-2 sm:p-0 border border-border/60 sm:border-none rounded-full sm:rounded-none"
     >
       {socialLinks.map((link) => {
         const Icon = link.Icon;
